@@ -16,7 +16,7 @@ Aggregated results are stored in tournament.txt
 Unpublished work (c)2013 Project Lead The Way
 CSE Project 1.3.5 Collaborating on a Project
 Draft, Do Not Distribute
-Version 12/11/2015 
+Version 8/23/2013 
 '''
 
 import random
@@ -29,6 +29,7 @@ def play_round(player1, player2, history1, history2, score1, score2):
     Returns a 4-tuple with updated histories and scores
     (history1, history2, score1, score2)
     '''
+    
     RELEASE = 0 # (R) when both players collude
     TREAT = 100 # (T) when you betray your partner
     SEVERE_PUNISHMENT = -500 # (S) when your partner betrays you
@@ -225,7 +226,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 5:
         if getting_team_name:
-            return 'backstabber with a conscience'
+            return 'TEAM DAN: backstabber with a conscience'
         else:
             if len(opponent_history)==0: #It's the first round: betray
                 return 'b'
@@ -233,6 +234,7 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
                 return 'c' # collude if they betrayed and the opponent colluded
             else:
                 return 'b' # if the opponent also betrayed, betray again
+    
     
     
     
@@ -247,12 +249,14 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 6:
         if getting_team_name:
-            return 'loyal vengeful believes in second chances'
+            return 'loyal vengeful'
         else:
+            # use history, opponent_history, score, opponent_score
+            # to compute your strategy
             if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
-            elif history[-1]=='c' and opponent_history[-1]=='b' and opponent_history[-1]=='b':
-                return 'b' # betray is they were severely punished the last two times
+            elif history[-1]=='c' and opponent_history[-1]=='b':
+                return 'b' # betray is they were severely punished last time
             else:
                 return 'c' #otherwise collude
     
@@ -271,13 +275,16 @@ def get_action(player, history, opponent_history, score, opponent_score, getting
     #
     elif player == 7:
         if getting_team_name:
-            return 'entirely random'
+            return 'loyal vengeful'
         else:
-            player7RandomInt = random.randint(1, 2)
-            if player7RandomInt == 1: #randomly decide to collude or betray
+            # use history, opponent_history, score, opponent_score
+            # to compute your strategy
+            if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
-            elif player7RandomInt == 2:
-                return 'b'
+            elif history[-1]=='c' and opponent_history[-1]=='b':
+                return 'b' # betray is they were sucker last time
+            else:
+                return 'c' #otherwise collude
 
 
 
