@@ -78,6 +78,21 @@ Team Heather:
                 return 'b' 
             else:
                 return 'b'
+                
+Team Ian:
+    #will add more changes during final
+    if getting_team_name:
+        return 'Team_Ian'
+    else:
+        if len(opponent_history)==0:
+            return 'c'
+        if history[-1]=='c':
+            if opponent_history[-1]=='c':
+                return 'c'
+            else:
+                return 'b'
+        if history[-1]=='b':
+            return 'b'
 
 Team Ryan:
         if getting_team_name:
