@@ -84,25 +84,17 @@ Team Ryan:
             return 'Team_Ryan'
         else:
             if len(opponent_history)==0: 
-                return 'b'
-            elif history[-1]=='b' and opponent_history[-1]=='b':
-                return 'b' 
-            else:
-                return 'b' 
-Team Garrett
-    if getting_team_name:
-            return 'Team Garrett'
-        else:
-            # use history, opponent_history, score, opponent_score
-            # to compute your strategy
-            if len(opponent_history)==0: #It's the first round: collude
                 return 'c'
-            elif history[-1]=='c' and opponent_history[-1]=='b':
-                return 'b' # betray is they were severely punished last time
-                if history[-1]=='b':
-                    return 'b'
-                else:
-                    return 'c'
             else:
-                return 'c' #otherwise collude
-            
+                recent_round_opponent = opponent_history[-1]
+                recent_round_me = history[-1]
+                for round in range(len(history)-1):
+                    prior_round_opponent = opponent_history[round]
+                    prior_round_me = history[round]
+                    if (prior_round_me == recent_round_me) and \
+                            (prior_round_opponent == recent_round_opponent):
+                        return opponent_history[round]
+                if history[-1]=='c' and opponent_history[-1]=='b':
+                    return 'b' 
+                else:
+                    return 'c' 
